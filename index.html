@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APA-DSS — Project Guide</title>
+<meta name="description" content="Academic Performance Analytics & Decision Support System — Visual Project Guide">
+<style>
+  :root{
+    --spu-blue:#1A3A5C;
+    --spu-blue-light:#2A5A7C;
+    --spu-blue-pale:#EFF6FF;
+    --spu-gold:#D4A847;
+    --spu-gold-light:#E5C870;
+    --bg:#F8F9FC;
+    --card:#FFFFFF;
+    --text:#1A1A2E;
+    --text-muted:#4A4A6A;
+    --text-soft:#6B7280;
+    --success:#2ECC71;
+    --success-dark:#15976A;
+    --danger:#E74C3C;
+    --warning:#F39C12;
+    --info:#2878D0;
+    --border:#E5E7EB;
+    --shadow:0 4px 16px rgba(26,58,92,.08);
+    --shadow-lg:0 12px 40px rgba(26,58,92,.14);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--spu-blue);text-decoration:none}
+  a:hover{color:var(--spu-blue-light)}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1200px;margin:0 auto;padding:0 24px;
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+  .brand-mark{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--spu-blue),var(--spu-blue-light));
+    color:#fff;display:grid;place-items:center;font-size:16px;
+    box-shadow:0 2px 8px rgba(26,58,92,.25);
+  }
+  .brand-text{font-size:15px;color:var(--spu-blue)}
+  .brand-text small{display:block;font-weight:400;font-size:11px;color:var(--text-muted)}
+  .nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{
+    padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;
+    color:var(--text-muted);white-space:nowrap;transition:.2s;
+  }
+  .nav-links a:hover{background:rgba(26,58,92,.06);color:var(--spu-blue)}
+  .nav-links a.active{background:var(--spu-blue);color:#fff}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  /* ============ HERO ============ */
+  .hero{
+    background:linear-gradient(135deg,#1A3A5C 0%,#2A5A7C 50%,#1A3A5C 100%);
+    color:#fff;padding:80px 24px 100px;position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 20% 30%,rgba(212,168,71,.16),transparent 40%),
+      radial-gradient(circle at 80% 70%,rgba(212,168,71,.10),transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:960px;margin:0 auto;position:relative;z-index:2;text-align:center}
+  .hero-badge{
+    display:inline-block;padding:6px 14px;border-radius:999px;
+    background:rgba(212,168,71,.18);color:var(--spu-gold-light);
+    font-size:12px;font-weight:600;letter-spacing:.5px;
+    border:1px solid rgba(212,168,71,.35);margin-bottom:24px;
+  }
+  .hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;line-height:1.15;margin-bottom:16px}
+  .hero h1 .gold{color:var(--spu-gold-light)}
+  .hero p.sub{font-size:clamp(15px,2vw,18px);color:#B8C9DC;max-width:720px;margin:0 auto 32px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center;
+    font-size:13px;color:#B8C9DC;margin-bottom:32px;
+  }
+  .hero-meta span{display:inline-flex;align-items:center;gap:6px}
+  .hero-meta b{color:#fff;font-weight:600}
+  .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;
+    transition:.2s;border:2px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--spu-gold);color:var(--spu-blue)}
+  .btn-primary:hover{background:var(--spu-gold-light);color:var(--spu-blue);transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.25)}
+  .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-2px)}
+
+  /* ============ SECTIONS ============ */
+  main{max-width:1100px;margin:-40px auto 0;padding:0 24px 80px;position:relative;z-index:3}
+  section{
+    background:var(--card);border-radius:var(--radius);
+    padding:40px;margin-bottom:24px;box-shadow:var(--shadow);
+    border:1px solid var(--border);
+  }
+  section .eyebrow{
+    display:inline-block;font-size:12px;font-weight:700;
+    letter-spacing:1.5px;color:var(--spu-gold);text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  section h2{
+    font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--spu-blue);
+    margin-bottom:16px;line-height:1.25;
+  }
+  section h3{font-size:17px;font-weight:700;color:var(--spu-blue);margin:28px 0 12px}
+  section p{margin-bottom:14px;color:var(--text-muted)}
+  section p:last-child{margin-bottom:0}
+  section ul,section ol{margin:10px 0 16px 20px;color:var(--text-muted)}
+  section li{margin-bottom:6px}
+  code{
+    background:rgba(26,58,92,.07);color:var(--spu-blue);
+    padding:2px 6px;border-radius:5px;font-size:.9em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  strong{color:var(--text)}
+
+  /* ============ QUOTE / CALLOUT ============ */
+  .quote{
+    border-left:4px solid var(--spu-gold);
+    background:rgba(212,168,71,.07);
+    padding:16px 20px;border-radius:0 10px 10px 0;
+    color:var(--text);font-style:italic;margin:16px 0;
+  }
+  .callout{
+    display:flex;gap:14px;padding:18px 20px;border-radius:12px;
+    margin:18px 0;border:1px solid;
+  }
+  .callout .ico{font-size:22px;line-height:1.2;flex-shrink:0}
+  .callout h4{font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:.3px}
+  .callout p{font-size:14px;margin:0;color:inherit}
+  .callout.info{background:#EFF6FF;border-color:#BFDBFE;color:#1E3A8A}
+  .callout.warn{background:#FFFBEB;border-color:#FDE68A;color:#92400E}
+  .callout.risk{background:#FEF2F2;border-color:#FCA5A5;color:#991B1B}
+  .callout.ok{background:#ECFDF5;border-color:#A7F3D0;color:#065F46}
+
+  /* ============ KPI GRID ============ */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:24px 0}
+  .kpi{
+    background:linear-gradient(160deg,#fff,#F8F9FC);
+    border:1px solid var(--border);border-radius:12px;
+    padding:20px;text-align:center;transition:.25s;
+  }
+  .kpi:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--spu-gold)}
+  .kpi .n{font-size:30px;font-weight:800;color:var(--spu-blue);line-height:1}
+  .kpi .l{font-size:12px;color:var(--text-muted);text-transform:uppercase;
+          letter-spacing:.6px;margin-top:8px;font-weight:600}
+
+  /* ============ FEATURE CARDS ============ */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0}
+  .card{
+    padding:22px;border-radius:12px;border:1px solid var(--border);
+    background:#fff;transition:.25s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--spu-gold)}
+  .card .icon{font-size:26px;margin-bottom:10px}
+  .card h4{font-size:15px;font-weight:700;color:var(--spu-blue);margin-bottom:8px}
+  .card p{font-size:13.5px;color:var(--text-muted);margin:0}
+  .card ul{margin:8px 0 0 18px;font-size:13.5px}
+  .card li{margin-bottom:3px}
+
+  /* ============ WORKFLOW ============ */
+  .workflow{
+    display:flex;flex-direction:column;align-items:center;gap:0;margin:24px 0;
+  }
+  .wf-box{
+    padding:14px 26px;border-radius:10px;background:var(--spu-blue-pale);
+    border:2px solid var(--info);color:var(--spu-blue);
+    font-weight:600;font-size:14px;text-align:center;min-width:220px;
+  }
+  .wf-box.gold{background:#FFFBEB;border-color:var(--spu-gold);color:#78350F}
+  .wf-box.green{background:#ECFDF5;border-color:var(--success-dark);color:#065F46}
+  .wf-box.gray{background:#F1F5F9;border-color:#94A3B8;color:#334155}
+  .wf-arrow{color:var(--text-soft);font-size:22px;line-height:1;margin:6px 0}
+
+  .workflow.two-col{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  }
+  @media(max-width:720px){.workflow.two-col{grid-template-columns:1fr;gap:20px}}
+  .workflow-col{display:flex;flex-direction:column;align-items:center;gap:0}
+  .workflow-col h4{font-size:13px;font-weight:700;color:var(--spu-blue);
+                   letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+
+  /* ============ SCREENSHOT CARDS ============ */
+  .shot{
+    margin:28px 0;border-radius:14px;overflow:hidden;
+    border:1px solid var(--border);background:#fff;
+    box-shadow:var(--shadow);
+  }
+  .shot img{width:100%;display:block;background:#F1F5F9;min-height:200px;object-fit:cover}
+  .shot .cap{padding:20px 24px}
+  .shot .cap h3{margin-top:0;font-size:16px;color:var(--spu-blue)}
+  .shot .cap .label{
+    display:inline-block;padding:3px 10px;border-radius:999px;
+    background:rgba(26,58,92,.08);color:var(--spu-blue);
+    font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:10px;
+  }
+  .shot .cap p{font-size:14px;margin-bottom:10px}
+  .shot .cap .why{
+    font-size:13px;padding:10px 14px;border-radius:8px;
+    background:rgba(212,168,71,.10);border-left:3px solid var(--spu-gold);
+    color:var(--text);
+  }
+  .shot .cap .why b{color:var(--spu-blue)}
+  .shot-placeholder{
+    display:flex;align-items:center;justify-content:center;
+    min-height:260px;background:repeating-linear-gradient(45deg,#F8F9FC,#F8F9FC 10px,#F1F5F9 10px,#F1F5F9 20px);
+    color:var(--text-muted);font-size:14px;text-align:center;padding:20px;
+    border-bottom:1px dashed var(--border);
+  }
+  .shot-placeholder code{background:#fff;border:1px solid var(--border);padding:4px 10px;font-size:12px}
+
+  /* screenshot purpose grid */
+  .shot-detail{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;
+  }
+  @media(max-width:640px){.shot-detail{grid-template-columns:1fr}}
+  .shot-detail .block{padding:12px 14px;border-radius:8px;background:#F8F9FC}
+  .shot-detail h5{font-size:12px;font-weight:700;color:var(--spu-blue);
+                  text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+  .shot-detail p, .shot-detail ul{font-size:13px;color:var(--text-muted);margin:0}
+  .shot-detail ul{margin-left:16px}
+
+  /* ============ JOURNEY ============ */
+  .journey{
+    display:flex;flex-direction:column;align-items:center;gap:0;
+    padding:20px;background:var(--spu-blue-pale);border-radius:12px;margin:20px 0;
+  }
+  .journey-step{
+    padding:10px 18px;border-radius:8px;background:#fff;
+    border:1px solid var(--info);color:var(--spu-blue);
+    font-weight:600;font-size:13.5px;cursor:pointer;
+    transition:.2s;min-width:200px;text-align:center;
+  }
+  .journey-step:hover{background:var(--spu-blue);color:#fff;transform:scale(1.03)}
+  .journey-arrow{color:var(--spu-gold);font-size:18px;margin:3px 0;line-height:1}
+
+  /* ============ TABLES ============ */
+  .tbl-wrap{overflow-x:auto;margin:16px 0;border-radius:10px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+  th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+  th{background:#F1F5F9;font-weight:700;color:var(--spu-blue);font-size:12px;
+     letter-spacing:.5px;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#FAFBFC}
+
+  /* ============ METRICS ============ */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:20px 0}
+  .metric{
+    padding:18px;border-radius:12px;text-align:center;
+    background:linear-gradient(160deg,#ECFDF5,#fff);
+    border:1px solid #A7F3D0;
+  }
+  .metric .v{font-size:26px;font-weight:800;color:#065F46;line-height:1}
+  .metric .k{font-size:11px;text-transform:uppercase;letter-spacing:.6px;
+             color:#047857;margin-top:8px;font-weight:600}
+
+  /* ============ FLOW (inline) ============ */
+  .flow{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    margin:20px 0;font-size:13px;font-weight:600;
+  }
+  .flow .step{
+    padding:8px 14px;border-radius:8px;background:#F1F5F9;
+    color:var(--spu-blue);border:1px solid var(--border);
+  }
+  .flow .arr{color:var(--spu-gold);font-weight:800}
+
+  /* ============ SECURITY CARDS ============ */
+  .security-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+  .sec-card{
+    padding:20px;border-radius:12px;border:1px solid var(--border);background:#fff;
+    transition:.25s;
+  }
+  .sec-card:hover{border-color:var(--spu-gold);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .sec-card .sec-ico{font-size:24px;margin-bottom:8px}
+  .sec-card h4{font-size:14px;font-weight:700;color:var(--spu-blue);margin-bottom:6px}
+  .sec-card p{font-size:13px;color:var(--text-muted);margin:0}
+
+  /* ============ DEMO VIDEO ============ */
+  .demo-box{
+    border-radius:14px;overflow:hidden;border:1px solid var(--border);
+    background:#fff;box-shadow:var(--shadow);
+  }
+  .demo-video{
+    aspect-ratio:16/9;background:linear-gradient(135deg,#1A3A5C,#2A5A7C);
+    display:grid;place-items:center;color:#fff;position:relative;
+    cursor:pointer;transition:.3s;
+  }
+  .demo-video:hover{filter:brightness(1.1)}
+  .demo-play{
+    width:80px;height:80px;border-radius:50%;
+    background:rgba(212,168,71,.95);color:var(--spu-blue);
+    display:grid;place-items:center;font-size:32px;
+    box-shadow:0 8px 30px rgba(212,168,71,.4);
+    margin-bottom:16px;
+  }
+  .demo-video .txt{font-size:15px;color:#B8C9DC}
+
+  /* ============ LINKS SECTION ============ */
+  .link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:20px 0}
+  .link-card{
+    padding:20px;border-radius:12px;border:2px solid var(--border);
+    background:#fff;transition:.25s;display:block;
+  }
+  .link-card:hover{border-color:var(--spu-blue);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .link-card .lc-ico{font-size:24px;margin-bottom:8px}
+  .link-card h4{font-size:15px;font-weight:700;color:var(--spu-blue);margin-bottom:4px}
+  .link-card p{font-size:13px;color:var(--text-muted);margin:0}
+  .link-card .lc-arrow{font-size:13px;color:var(--spu-gold);font-weight:700;margin-top:8px;display:block}
+
+  /* ============ EVIDENCE LIST ============ */
+  .evidence-list{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:10px;margin:20px 0;
+  }
+  .evidence-item{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:12px 14px;border-radius:8px;background:#ECFDF5;
+    border-left:3px solid var(--success-dark);font-size:13.5px;
+    color:#065F46;font-weight:500;
+  }
+  .evidence-item::before{content:"✓";color:var(--success-dark);font-weight:800;flex-shrink:0}
+
+  /* ============ FOOTER ============ */
+  footer{
+    text-align:center;padding:40px 24px;color:var(--text-muted);
+    font-size:13px;border-top:1px solid var(--border);
+    background:#fff;margin-top:24px;
+  }
+  footer b{color:var(--spu-blue)}
+
+  /* ============ BACK TO TOP ============ */
+  .top-btn{
+    position:fixed;bottom:24px;right:24px;
+    width:48px;height:48px;border-radius:50%;
+    background:var(--spu-blue);color:#fff;
+    display:grid;place-items:center;font-size:20px;
+    box-shadow:0 8px 24px rgba(26,58,92,.3);
+    cursor:pointer;transition:.25s;z-index:50;
+    opacity:0;pointer-events:none;border:none;
+  }
+  .top-btn.show{opacity:1;pointer-events:auto}
+  .top-btn:hover{background:var(--spu-blue-light);transform:translateY(-3px)}
+
+  /* ============ PRINT ============ */
+  @media print{
+    .nav,.top-btn,footer{display:none}
+    section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+    .hero{background:#1A3A5C!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    main{margin-top:0}
+    .hero-cta{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div class="brand-text">APA-DSS<small>Project Guide</small></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#intro">Intro</a>
+      <a href="#what">What</a>
+      <a href="#problem">Problem</a>
+      <a href="#does">Features</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#explore">Explore</a>
+      <a href="#database">Data</a>
+      <a href="#ml">ML</a>
+      <a href="#tech">Tech</a>
+      <a href="#security">Security</a>
+      <a href="#limits">Limits</a>
+      <a href="#demo">Demo</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#links">Links</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== 1. HERO ==================== -->
+<header class="hero" id="intro">
+  <div class="hero-inner">
+    <div class="hero-badge">MINI-CAPSTONE · SPECIAL TOPICS IN COMPUTER SCIENCE</div>
+    <h1>APA-DSS<br><span class="gold">Academic Performance Analytics &amp; Decision Support System</span></h1>
+    <p class="sub">
+      A web-based academic analytics platform that transforms student academic records into
+      dashboards, performance insights, reports, and ML-assisted risk indicators.
+    </p>
+    <div class="hero-meta">
+      <span>🎓 <b>Author:</b> Keotshepile Keikabile</span>
+      <span>🏛 <b>Institution:</b> Sol Plaatje University</span>
+      <span>📅 <b>Year:</b> 2026</span>
+      <span>💻 <b>Stack:</b> Node.js · MySQL · Python</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/Keotshepile2/Academic-Analytics-System" target="_blank" rel="noopener">
+        📂 View on GitHub
+      </a>
+      <a class="btn btn-ghost" href="#explore">🔍 Explore the System</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ==================== 2. WHAT IS APA-DSS ==================== -->
+  <section id="what">
+    <div class="eyebrow">01 — Introduction</div>
+    <h2>What is APA-DSS?</h2>
+    <p>
+      <b>APA-DSS</b> is a web application designed to analyse academic performance data stored
+      in a Student Record Management System (SRMS).
+    </p>
+    <p>The system combines:</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🗄️</div>
+        <h4>SQL Analytics</h4>
+        <p>Aggregations, trends, and cohort analysis over read-only academic records.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h4>Interactive Dashboards</h4>
+        <p>KPIs, charts, and drill-downs rendered with Chart.js.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👨‍🎓</div>
+        <h4>Student Analytics</h4>
+        <p>Per-student academic history, marks, and risk indicators.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📚</div>
+        <h4>Module Analytics</h4>
+        <p>Module-level performance, difficulty indices, and distributions.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📄</div>
+        <h4>Reports</h4>
+        <p>CSV export and print/PDF for academic review meetings.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🤖</div>
+        <h4>Machine Learning</h4>
+        <p>An interpretable classification pipeline for students associated with recent academic risk.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔐</div>
+        <h4>Administrator Access</h4>
+        <p>Session-based login restricted to existing SRMS administrators.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🛡️</div>
+        <h4>Read-Only Design</h4>
+        <p>Dedicated read-only database account — analytics cannot modify source records.</p>
+      </div>
+    </div>
+
+    <h3>The core idea in one diagram</h3>
+    <div class="workflow">
+      <div class="wf-box gray">Existing SRMS</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">MySQL Database (read-only)</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box gold">APA-DSS</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Analytics + ML</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box green">Dashboards · Reports · Decision Support</div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. THE PROBLEM ==================== -->
+  <section id="problem">
+    <div class="eyebrow">02 — Motivation</div>
+    <h2>The Problem</h2>
+    <p>Academic records contain valuable information, but raw records do not immediately show:</p>
+    <ul>
+      <li>Which modules have low pass rates?</li>
+      <li>How is student performance changing over time?</li>
+      <li>Which students may require closer academic review?</li>
+      <li>How are programmes performing relative to each other?</li>
+      <li>What patterns exist across semesters and cohorts?</li>
+    </ul>
+    <div class="quote">
+      APA-DSS provides an analytics layer over the existing student-record database — turning
+      records into insight without modifying the source system.
+    </div>
+  </section>
+
+  <!-- ==================== 4. WHAT THE SYSTEM DOES ==================== -->
+  <section id="does">
+    <div class="eyebrow">03 — Capabilities</div>
+    <h2>What the System Does</h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📊</div>
+        <h4>Dashboard</h4>
+        <p>Academic performance overview:</p>
+        <ul>
+          <li>Total students</li>
+          <li>Module statistics</li>
+          <li>Pass rates</li>
+          <li>Performance trends</li>
+          <li>Programme summaries</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon">👨‍🎓</div>
+        <h4>Student Analytics</h4>
+        <p>Per-student drill-down:</p>
+        <ul>
+          <li>Academic history</li>
+          <li>Module performance</li>
+          <li>Marks &amp; grades</li>
+          <li>Performance trends</li>
+          <li>Class rank within programme</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon">📚</div>
+        <h4>Module Analytics</h4>
+        <p>Module-level insight:</p>
+        <ul>
+          <li>Pass / fail rates</li>
+          <li>Average marks</li>
+          <li>Grade distributions</li>
+          <li>Difficulty index</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon">🤖</div>
+        <h4>Machine Learning</h4>
+        <p>
+          A Logistic Regression classification pipeline for identifying students associated
+          with <b>recent academic risk</b>. Each flag is explainable — advisors see <i>why</i>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. SYSTEM WORKFLOW ==================== -->
+  <section id="workflow">
+    <div class="eyebrow">04 — How It Works</div>
+    <h2>System Workflow</h2>
+
+    <h3>Application data flow</h3>
+    <div class="workflow two-col">
+      <div class="workflow-col">
+        <h4>Request Path</h4>
+        <div class="wf-box gray">Existing SMS Database</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box">MySQL 8 · Read-Only Account</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box gold">Node.js / Express Backend</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box">HTML / CSS / JS · Chart.js</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box green">Dashboards · Tables · Reports</div>
+      </div>
+
+      <div class="workflow-col">
+        <h4>ML Path</h4>
+        <div class="wf-box gray">Academic Records</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box">Feature Engineering</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box gold">Logistic Regression</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box">Probability Estimate</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box">Project-Defined Risk Band</div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-box green">Advisor Review</div>
+      </div>
+    </div>
+
+    <h3>The four-layer architecture</h3>
+    <p>
+      APA-DSS is structured as four clear layers. Each one has a single responsibility, which
+      makes the system easier to reason about, debug, and extend.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Layer</th><th>Technology</th><th>Responsibility</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Presentation</b></td><td>HTML · CSS · JS · Chart.js</td><td>Render dashboards, tables, modals, and reports</td></tr>
+          <tr><td><b>Application</b></td><td>Node.js · Express</td><td>REST API · sessions · orchestration</td></tr>
+          <tr><td><b>Data</b></td><td>MySQL 8 (read-only)</td><td>Source of truth for academic records</td></tr>
+          <tr><td><b>ML</b></td><td>Python · scikit-learn</td><td>Feature engineering · training · scoring</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      A full technical diagram of this architecture is in the
+      <a href="#tech">Technical Architecture</a> section below.
+    </p>
+  </section>
+
+  <!-- ==================== 6. EXPLORE THE SYSTEM ==================== -->
+  <section id="explore">
+    <div class="eyebrow">05 — Visual Walkthrough</div>
+    <h2>Explore the System</h2>
+    <p>
+      Each screen below shows a working part of APA-DSS as it ran during development. Each
+      screenshot is annotated with its <b>purpose</b> and <b>what it demonstrates</b>.
+    </p>
+
+    <!-- 01 LOGIN -->
+    <div class="shot">
+      <img src="screenshots/01-login.png" alt="Login page">
+      <div class="cap">
+        <span class="label">SCREEN 01</span>
+        <h3>Login</h3>
+        <p>
+          The entry point to APA-DSS. Only existing SRMS administrators can authenticate —
+          there is no public sign-up.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Authenticates authorised system administrators.</p>
+          </div>
+          <div class="block">
+            <h5>What it demonstrates</h5>
+            <ul>
+              <li>Session-based authentication</li>
+              <li>Server-side validation</li>
+              <li>Database integration with the <code>admins</code> table</li>
+              <li>Protected routes (redirect when unauthenticated)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 DASHBOARD -->
+    <div class="shot">
+      <img src="screenshots/02-dashboard.png" alt="Dashboard Page">
+      <div class="cap">
+        <span class="label">SCREEN 02</span>
+        <h3>Dashboard</h3>
+        <p>
+          The primary decision-support view: six headline KPIs, GPA trend, academic progression,
+          top/bottom modules, failure hotspots, and at-risk alerts.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Provides an overview of academic performance at a glance.</p>
+          </div>
+          <div class="block">
+            <h5>Key information</h5>
+            <ul>
+              <li>Student population &amp; module counts</li>
+              <li>Overall pass rate &amp; average mark</li>
+              <li>Performance trends across semesters</li>
+              <li>Progression breakdown (Proceed / Repeat / At-Risk / Excluded)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 STUDENT LIST -->
+    <div class="shot">
+      <img src="screenshots/03-students.png" alt="Student list">
+      <div class="cap">
+        <span class="label">SCREEN 03</span>
+        <h3>Student Analytics</h3>
+        <p>
+          A searchable, sortable list of students with filters for programme, faculty,
+          semester, and year level.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Locate and filter individual student records for review.</p>
+          </div>
+          <div class="block">
+            <h5>What it demonstrates</h5>
+            <ul>
+              <li>Server-side filtering</li>
+              <li>Sortable tables via SQL</li>
+              <li>Drill-down navigation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 STUDENT DETAIL -->
+    <div class="shot">
+      <img src="screenshots/03-students.png" alt="Student Details">
+      <div class="cap">
+        <span class="label">SCREEN 04</span>
+        <h3>Student Details</h3>
+        <p>
+          A drill-down modal showing a single student's academic history, class rank within
+          programme, and comparison against programme and university averages.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Support advisor reviews of an individual student's academic trajectory.</p>
+          </div>
+          <div class="block">
+            <h5>What it demonstrates</h5>
+            <ul>
+              <li>Marks history chart</li>
+              <li>Programme rank (via SQL window functions)</li>
+              <li>Failed modules list</li>
+              <li>Comparative analytics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 MODULE DETAIL -->
+    <div class="shot">
+      <img src="screenshots/04-module-detail.png" alt="Modules">
+      <div class="cap">
+        <span class="label">SCREEN 05</span>
+        <h3>Module Analytics</h3>
+        <p>
+          A module-level drill-down: rank within programme, difficulty index, pass-rate trend,
+          mark distribution histogram, and bottom-5 performing students.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Help module coordinators identify structurally difficult modules.</p>
+          </div>
+          <div class="block">
+            <h5>What it demonstrates</h5>
+            <ul>
+              <li>Multi-table joins &amp; aggregations</li>
+              <li>Histogram computation</li>
+              <li>Percentile-style ranking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 AT-RISK ML -->
+    <div class="shot">
+      <img src="screenshots/05-at-risk.png" alt="Riks">
+      <div class="cap">
+        <span class="label">SCREEN 06</span>
+        <h3>At-Risk ML</h3>
+        <p>
+          Every student scored by the Logistic Regression pipeline, with per-student top
+          contributing features shown in plain language.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>What you can see</h5>
+            <ul>
+              <li>Student identifier</li>
+              <li>Risk probability</li>
+              <li>Project-defined risk band</li>
+              <li>Contributing features</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h5>Why it matters</h5>
+            <p>
+              Demonstrates how a trained classification model can be integrated into a
+              web-based academic analytics system — with <b>explainability</b> preserved at
+              the point of decision.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 REPORTS -->
+    <div class="shot">
+      <img src="screenshots/06-reports.png" alt="Reports">
+      <div class="cap">
+        <span class="label">SCREEN 07</span>
+        <h3>Reports</h3>
+        <p>
+          Five pre-built report types — Academic Summary, Module, Programme, Student, and
+          At-Risk — each exportable as CSV or printable as PDF.
+        </p>
+        <div class="shot-detail">
+          <div class="block">
+            <h5>Purpose</h5>
+            <p>Turn analytics into documentation for academic review meetings.</p>
+          </div>
+          <div class="block">
+            <h5>What it demonstrates</h5>
+            <ul>
+              <li>Server-generated reports</li>
+              <li>CSV generation</li>
+              <li>Browser print stylesheet support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM JOURNEY -->
+    <h3>System Journey</h3>
+    <p>
+      A typical usage flow — click any step to jump back to its screenshot.
+    </p>
+    <div class="journey">
+      <a class="journey-step" href="#explore">Login</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#explore">Dashboard</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#explore">Select Student</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#explore">View Academic History</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#explore">Analyse Performance</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#ml">View ML Risk Indicator</a>
+      <div class="journey-arrow">↓</div>
+      <a class="journey-step" href="#explore">Generate Report</a>
+    </div>
+  </section>
+
+  <!-- ==================== 7. DATA & DATABASE ==================== -->
+  <section id="database">
+    <div class="eyebrow">06 — Data Layer</div>
+    <h2>Data &amp; Database</h2>
+    <p>
+      APA-DSS connects to an existing MySQL Student Record Management System. It does not
+      maintain its own copy of academic records — the database is the single source of truth.
+    </p>
+
+    <h3>Main tables used</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Table</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>students</code></td><td>Student identity, programme, year enrolled, status</td></tr>
+          <tr><td><code>modules</code></td><td>Module metadata, credit hours, year level</td></tr>
+          <tr><td><code>student_enrollments</code></td><td>Links students to modules, records marks and grades</td></tr>
+          <tr><td><code>programmes</code></td><td>Programme metadata</td></tr>
+          <tr><td><code>faculties</code></td><td>Faculty metadata</td></tr>
+          <tr><td><code>semesters</code></td><td>Academic year and semester definitions</td></tr>
+          <tr><td><code>admins</code></td><td>Administrator credentials (for APA-DSS login)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Simplified relationship diagram</h3>
+    <div class="workflow">
+      <div class="wf-box gray">faculties</div>
+      <div class="wf-arrow">↓ 1:N</div>
+      <div class="wf-box gray">programmes</div>
+      <div class="wf-arrow">↓ 1:N &nbsp;&nbsp;&nbsp;&nbsp; 1:N ↓</div>
+      <div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center;margin-top:6px">
+        <div class="wf-box">modules</div>
+        <div class="wf-box">students</div>
+      </div>
+      <div class="wf-arrow">↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓</div>
+      <div class="wf-box gold">student_enrollments</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box gray">semesters</div>
+    </div>
+
+    <div class="callout info">
+      <div class="ico">🔒</div>
+      <div>
+        <h4>READ-ONLY BY DESIGN</h4>
+        <p>
+          APA-DSS uses a dedicated read-only database account (<code>apa_dss_user</code>) with
+          <code>SELECT</code>-only privileges. Analytics queries cannot modify the underlying
+          student-record data.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px">
+      📖 <b>Full database documentation, schema details, and SQL query set:</b>
+      <a href="TECHNICAL.md#2-database-schema--integration">docs/TECHNICAL.md → §2</a>
+    </p>
+  </section>
+
+  <!-- ==================== 8. MACHINE LEARNING ==================== -->
+  <section id="ml">
+    <div class="eyebrow">07 — Machine Learning</div>
+    <h2>Machine Learning Pipeline</h2>
+
+    <div class="callout warn">
+      <div class="ico">📌</div>
+      <div>
+        <h4>METHODOLOGICAL SCOPE — READ FIRST</h4>
+        <p>
+          The current target is constructed from <b>recent-semester academic performance</b>.
+          Because some recent-semester features are also used as predictors, this implementation
+          is a <b>demonstration of an interpretable classification pipeline and its integration
+          into a decision-support system</b> — not a validated future-risk prediction model.
+          A production early-warning model requires strict temporal separation between predictor
+          data and future outcomes.
+        </p>
+      </div>
+    </div>
+
+    <h3>The ML pipeline in one diagram</h3>
+    <div class="workflow">
+      <div class="wf-box gray">Student Records</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Data Extraction (pandas)</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Feature Engineering</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Train / Test Split (80 / 20)</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Standardisation</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box gold">Logistic Regression</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">Probability (0–1)</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box green">Project-Defined Risk Band</div>
+    </div>
+
+    <h3>Model metrics (test set: 120 held-out students)</h3>
+    <div class="metrics">
+      <div class="metric"><div class="v">93.3%</div><div class="k">Accuracy</div></div>
+      <div class="metric"><div class="v">85.0%</div><div class="k">Precision</div></div>
+      <div class="metric"><div class="v">94.4%</div><div class="k">Recall</div></div>
+      <div class="metric"><div class="v">89.5%</div><div class="k">F1-Score</div></div>
+      <div class="metric"><div class="v">98.6%</div><div class="k">AUC-ROC</div></div>
+      <div class="metric"><div class="v">91.0%</div><div class="k">5-Fold CV Accuracy</div></div>
+    </div>
+
+    <h3>Top contributing features</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>Coefficient</th><th>Direction</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>avg_mark_last_sem</code></td><td>−4.17</td><td>↓ associated with lower risk</td></tr>
+          <tr><td><code>failure_rate</code></td><td>+1.83</td><td>↑ associated with higher risk</td></tr>
+          <tr><td><code>avg_mark</code></td><td>+1.23</td><td>↑ associated with higher risk</td></tr>
+          <tr><td><code>year_level</code></td><td>+1.12</td><td>↑ associated with higher risk</td></tr>
+          <tr><td><code>num_modules</code></td><td>−1.07</td><td>↓ associated with lower risk</td></tr>
+          <tr><td><code>num_failed</code></td><td>+0.98</td><td>↑ associated with higher risk</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <div class="ico">⚠️</div>
+      <div>
+        <h4>CRITICAL LIMITATIONS</h4>
+        <p>
+          <b>Synthetic training data</b> — metrics validate implementation, not real-world
+          prediction quality. <b>No strict temporal separation</b> — the target uses recent
+          performance that also appears as features. <b>Uncalibrated probabilities</b> — sigmoid
+          output was not validated against observed outcomes. <b>Project-defined risk bands</b> —
+          HIGH / AT_RISK / MONITOR / ON_TRACK are UI labels, not statistically validated cut-offs.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px">
+      📖 <b>Full ML methodology, feature engineering, and pipeline code:</b>
+      <a href="TECHNICAL.md#6-machine-learning-pipeline">docs/TECHNICAL.md → §6</a>
+    </p>
+  </section>
+
+  <!-- ==================== 9. TECHNICAL ARCHITECTURE ==================== -->
+  <section id="tech">
+    <div class="eyebrow">08 — Architecture</div>
+    <h2>Technical Architecture</h2>
+    <p>
+      APA-DSS follows a layered, read-only architecture. Each layer has one job and communicates
+      with adjacent layers only.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Layer</th><th>Technology</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Frontend</b></td>
+            <td>HTML · CSS · JavaScript · Chart.js</td>
+            <td>Dashboards, tables, modals, reports</td>
+          </tr>
+          <tr>
+            <td><b>Backend</b></td>
+            <td>Node.js · Express · REST API · Sessions</td>
+            <td>Routing, auth, orchestration, DB access</td>
+          </tr>
+          <tr>
+            <td><b>Database</b></td>
+            <td>MySQL 8 · <code>mysql2</code> · read-only account</td>
+            <td>Source of truth for all academic records</td>
+          </tr>
+          <tr>
+            <td><b>ML</b></td>
+            <td>Python · pandas · NumPy · scikit-learn · joblib</td>
+            <td>Feature engineering, training, scoring</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      A full architecture diagram, design decisions, and trade-offs are documented in
+      <a href="TECHNICAL.md#1-system-architecture">docs/TECHNICAL.md → §1</a>.
+    </p>
+
+    <p>
+      📖 <b>Read full technical documentation:</b>
+      <a href="TECHNICAL.md">docs/TECHNICAL.md</a>
+    </p>
+  </section>
+
+  <!-- ==================== 10. SECURITY & RESPONSIBLE USE ==================== -->
+  <section id="security">
+    <div class="eyebrow">09 — Safety</div>
+    <h2>Security &amp; Responsible Use</h2>
+
+    <div class="security-grid">
+      <div class="sec-card">
+        <div class="sec-ico">🔐</div>
+        <h4>Authentication</h4>
+        <p>Session-based administrator authentication. No public sign-up.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-ico">🛡️</div>
+        <h4>Database Protection</h4>
+        <p>Read-only database account — analytics cannot modify source records.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-ico">🔒</div>
+        <h4>SQL Injection Protection</h4>
+        <p>Parameterised queries / prepared statements throughout the API.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-ico">🧑‍⚖️</div>
+        <h4>Human Oversight</h4>
+        <p>ML output is decision-support information — it does not automatically determine academic interventions.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-ico">🔏</div>
+        <h4>Privacy</h4>
+        <p>Designed around privacy considerations for sensitive academic information.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-ico">📋</div>
+        <h4>Auditability</h4>
+        <p>Every analytics query runs through a dedicated, least-privilege DB user.</p>
+      </div>
+    </div>
+
+    <h3>Prototype limitations</h3>
+    <ul>
+      <li>Local database only — not reachable remotely without hosting</li>
+      <li>No production deployment</li>
+      <li>No persistent production session store</li>
+      <li>No rate limiting on authentication</li>
+      <li>Password handling inherited from the existing SMS authentication system</li>
+      <li>ML requires further validation before operational use</li>
+    </ul>
+  </section>
+
+  <!-- ==================== 11. LIMITATIONS ==================== -->
+  <section id="limits">
+    <div class="eyebrow">10 — Honest Scope</div>
+    <h2>Limitations</h2>
+
+    <h3>Data</h3>
+    <ul>
+      <li><b>Synthetic training data</b> — metrics validate implementation, not real-world quality.</li>
+      <li><b>No institutional validation</b> — historical data would be required.</li>
+      <li><b>Local database</b> — the MySQL instance runs on the developer machine.</li>
+    </ul>
+
+    <h3>Model</h3>
+    <ul>
+      <li><b>No strict temporal separation</b> — the target uses recent-semester performance that also appears as features.</li>
+      <li><b>Small training set</b> — 600 students limits model complexity.</li>
+      <li><b>Binary target</b> — the 50%-failure rule is a simplification.</li>
+      <li><b>Uncalibrated probabilities</b> — sigmoid output was not calibrated against observed outcomes.</li>
+      <li><b>Project-defined risk bands</b> — HIGH / AT_RISK / MONITOR / ON_TRACK are UI labels.</li>
+    </ul>
+
+    <h3>Security</h3>
+    <ul>
+      <li>Password handling inherited from the existing SMS.</li>
+      <li>No rate limiting on authentication endpoints.</li>
+      <li>No CSRF protection on state-changing endpoints.</li>
+    </ul>
+
+    <h3>Deployment</h3>
+    <ul>
+      <li>Not deployed institutionally.</li>
+      <li>Requires hosted DB, HTTPS, hardened auth, audit logging, and POPIA / data-protection review before production use.</li>
+    </ul>
+  </section>
+
+  <!-- ==================== 12. DEMO ==================== -->
+  <section id="demo">
+    <div class="eyebrow">11 — Demonstration</div>
+    <h2>System Demonstration</h2>
+    <p>
+      A short screen recording showing the working system end-to-end — from login to report
+      generation. Useful when the live system cannot be run on the viewer's machine.
+    </p>
+
+    <div class="demo-box">
+      <div class="demo-video">
+        <div class="demo-play">▶</div>
+        <div class="txt">Demo video </code></div>
+      </div>
+      <div class="cap" style="padding:20px 24px">
+        <span class="label">90-SECOND WALKTHROUGH</span>
+        <h3>What the demo covers</h3>
+        <div class="flow" style="margin-top:10px">
+          <span class="step">Login</span><span class="arr">→</span>
+          <span class="step">Dashboard</span><span class="arr">→</span>
+          <span class="step">Student analysis</span><span class="arr">→</span>
+          <span class="step">Module analysis</span><span class="arr">→</span>
+          <span class="step">ML risk analysis</span><span class="arr">→</span>
+          <span class="step">Report generation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="ico">💡</div>
+      <div>
+        <h4>TO ENABLE THE VIDEO</h4>
+        <p>
+         
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 13. PROJECT EVIDENCE ==================== -->
+  <section id="evidence">
+    <div class="eyebrow">12 — Skills</div>
+    <h2>Project Evidence</h2>
+    <p>
+      This project is not only a report — it is evidence of specific, demonstrable skills.
+    </p>
+
+    <div class="evidence-list">
+      <div class="evidence-item">Full-stack web application</div>
+      <div class="evidence-item">MySQL database integration (read-only)</div>
+      <div class="evidence-item">REST API development (20+ endpoints)</div>
+      <div class="evidence-item">SQL analytical queries (aggregation, ranking, cohort analysis)</div>
+      <div class="evidence-item">Interactive data visualisation (Chart.js)</div>
+      <div class="evidence-item">Machine learning pipeline (scikit-learn)</div>
+      <div class="evidence-item">Model evaluation (accuracy, precision, recall, F1, AUC-ROC, CV)</div>
+      <div class="evidence-item">Authentication / session management</div>
+      <div class="evidence-item">CSV export and PDF reporting</div>
+      <div class="evidence-item">Technical documentation (README · project guide · technical deep dive)</div>
+    </div>
+
+    <h3>Where to find each piece</h3>
+    <div class="link-grid">
+      <a class="link-card" href="https://github.com/Keotshepile2/Academic-Analytics-System" target="_blank" rel="noopener">
+        <div class="lc-ico">📦</div>
+        <h4>Repository</h4>
+        <p>Full source code on GitHub</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="TECHNICAL.md">
+        <div class="lc-ico">📄</div>
+        <h4>Documentation</h4>
+        <p>Architecture, SQL, API, ML, and deployment</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="screenshots/">
+        <div class="lc-ico">📸</div>
+        <h4>Screenshots</h4>
+        <p>Annotated UI captures of every screen</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="../ml-pipeline/">
+        <div class="lc-ico">🤖</div>
+        <h4>ML Code</h4>
+        <p>Feature engineering, training, evaluation</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== 14. LINKS ==================== -->
+  <section id="links">
+    <div class="eyebrow">13 — Documentation Map</div>
+    <h2>Documentation Links</h2>
+    <p>Three tiers of documentation, each written for a different reader.</p>
+
+    <div class="workflow">
+      <div class="wf-box gray">README.md</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:6px">Portfolio overview &amp; quick start</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box gold">project-guide.html</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:6px">Visual walkthrough (this page)</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box">docs/TECHNICAL.md</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:6px">Architecture · SQL · API · ML · security</div>
+      <div class="wf-arrow">↓</div>
+      <div class="wf-box green">Source code &amp; screenshots</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:6px">Evidence of implementation</div>
+    </div>
+
+    <div class="link-grid" style="margin-top:32px">
+      <a class="link-card" href="../README.md">
+        <div class="lc-ico">🏠</div>
+        <h4>README.md</h4>
+        <p>Project overview, features, quick start</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="TECHNICAL.md">
+        <div class="lc-ico">🛠️</div>
+        <h4>TECHNICAL.md</h4>
+        <p>Deep technical documentation</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="https://github.com/Keotshepile2/Academic-Analytics-System" target="_blank" rel="noopener">
+        <div class="lc-ico">🐙</div>
+        <h4>GitHub Repository</h4>
+        <p>Complete source code</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+      <a class="link-card" href="https://github.com/Keotshepile2" target="_blank" rel="noopener">
+        <div class="lc-ico">👤</div>
+        <h4>Author Profile</h4>
+        <p>Keotshepile Keikabile · @Keotshepile2</p>
+        <span class="lc-arrow">Open →</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><b>APA-DSS</b> — <i>Turning academic records into academic insight.</i></p>
+  <p style="margin-top:6px;font-size:12px">
+    © 2026 Keotshepile Keikabile · Sol Plaatje University · Mini-Capstone Project
+  </p>
+</footer>
+
+<button class="top-btn" id="topBtn" aria-label="Back to top">↑</button>
+
+<script>
+  // Active nav highlight while scrolling
+  const links = document.querySelectorAll('#navLinks a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  function highlight(){
+    const y = window.scrollY + 100;
+    let current = sections[0];
+    for (const s of sections) { if (s.offsetTop <= y) current = s; }
+    links.forEach(a => a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id));
+  }
+
+  // Back-to-top button
+  const topBtn = document.getElementById('topBtn');
+  function toggleTop(){
+    topBtn.classList.toggle('show', window.scrollY > 600);
+  }
+
+  window.addEventListener('scroll', () => { highlight(); toggleTop(); }, { passive: true });
+  highlight(); toggleTop();
+
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+
+</body>
+</html>
